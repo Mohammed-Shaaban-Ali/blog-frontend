@@ -1,9 +1,17 @@
 import React from "react";
 import "./Home.css";
-import "../admin/AdminDashborad";
 
 const Home = () => {
-  return <div>Home ss</div>;
+  return (
+    <section className="home">
+      <div className="home-hero-header">
+        <div className="home-hero-header-layout">
+          <h1 className="home-title">Welcome to Blog</h1>
+          <h2>shaaban</h2>
+        </div>
+      </div>
+    </section>
+  );
 };
 
 export default Home;
