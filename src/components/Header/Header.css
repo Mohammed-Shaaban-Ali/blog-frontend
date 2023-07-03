@@ -35,7 +35,8 @@
     align-items: center;
 }
 
-.nav-like {
+.nav-like,
+.active {
     margin: 0 12px;
     cursor: pointer;
     font-size: 21px;
@@ -45,7 +46,8 @@
     border-bottom: 1px solid transparent;
 }
 
-.nav-like:hover {
+.nav-like:hover,
+.active {
     color: var(--main-color);
     border-bottom: 1px solid var(--white-color);
 }

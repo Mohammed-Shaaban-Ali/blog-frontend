@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import "./Header.css";
 
 import { FaBars } from "react-icons/fa";
@@ -26,30 +26,34 @@ function Header() {
         className="navbar"
       >
         <ul className="nav-likes">
-          <Link to="/" onClick={() => setToggrl(false)} className="nav-like">
+          <NavLink
+            to="/"
+            onClick={() => setToggrl(false)}
+            className={({ isActive }) => (isActive ? "active" : "nav-like")}
+          >
             Home
-          </Link>
-          <Link
+          </NavLink>
+          <NavLink
             to="/posts"
             onClick={() => setToggrl(false)}
-            className="nav-like"
+            className={({ isActive }) => (isActive ? "active" : "nav-like")}
           >
             Posts
-          </Link>
-          <Link
+          </NavLink>
+          <NavLink
             to="/posts/create-post"
             onClick={() => setToggrl(false)}
-            className="nav-like"
+            className={({ isActive }) => (isActive ? "active" : "nav-like")}
           >
             Create
-          </Link>
-          <Link
+          </NavLink>
+          <NavLink
             to="/admin-dashboard"
             onClick={() => setToggrl(false)}
-            className="nav-like"
+            className={({ isActive }) => (isActive ? "active" : "nav-like")}
           >
             Dashboard
-          </Link>
+          </NavLink>
         </ul>
       </div>
       <div className="header-right">
