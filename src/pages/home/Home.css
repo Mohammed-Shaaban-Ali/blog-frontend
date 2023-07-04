@@ -44,3 +44,55 @@
     display: flex;
     align-items: flex-start;
 }
+
+.home-see-posts-link {
+    padding: 0 30px;
+    margin: 15px 0;
+}
+
+.home-see-posts-link .home-link {
+    width: 100%;
+    padding: 10px;
+    font-style: 21px;
+    background-color: var(--dark-color);
+    color: var(--white-color);
+    border: none;
+    cursor: pointer;
+    display: block;
+    text-align: center;
+    transition: all 0.4s ease;
+    border-radius: 5px;
+}
+
+.home-see-posts-link .home-link:hover {
+    background-color: #575b5d;
+}
+
+
+@media screen and (max-width:768px) {
+    .home-title {
+        font-size: 50px;
+    }
+
+    .home-containar {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        flex: 1 !important;
+        margin: auto !important;
+        width: 100%;
+    }
+
+}
+
+@media screen and (max-width:400px) {
+    .home-title {
+        font-size: 40px;
+    }
+
+    .post-item-title {
+        font-size: 16px;
+    }
+
+}

@@ -1,0 +1,21 @@
+.post-page {
+    display: flex;
+    align-items: flex-start;
+    padding: 30px;
+}
+
+@media screen and (max-width:768px) {
+
+    .post-page {
+        flex-direction: column;
+    }
+
+}
+
+@media screen and (max-width:400px) {
+
+    .post-item-title {
+        font-size: 16px;
+    }
+
+}
