@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import "./CommentList.css";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { BiEdit } from "react-icons/bi";
 import swal from "sweetalert";
+import UpdateComment from "./UpdateComment";
 
 const CommentList = () => {
+  const [updateComment, setUpdateComment] = useState(false);
   // Delete comment Handler
   const deletePostHandler = () => {
     swal({
@@ -37,6 +39,7 @@ const CommentList = () => {
           </p>
           <div className="comment-item-icon-wrapper">
             <BiEdit
+              onClick={() => setUpdateComment(true)}
               style={{ fill: "green", marginRight: "15px", cursor: "pointer" }}
             />
             <RiDeleteBin6Line
@@ -46,6 +49,7 @@ const CommentList = () => {
           </div>
         </div>
       ))}
+      {updateComment && <UpdateComment setUpdateComment={setUpdateComment} />}
     </div>
   );
 };

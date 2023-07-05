@@ -5,26 +5,26 @@ import "./CreatePost.css";
 
 const CreatePost = () => {
   const [title, setTitle] = useState("");
-  const [categoty, setCategoty] = useState("");
-  const [descripton, setDescripton] = useState("");
+  const [category, setcategory] = useState("");
+  const [description, setdescription] = useState("");
   const [file, setFile] = useState(null);
 
   const handelSubmit = (e) => {
     e.preventDefault();
 
     if (title.trim() === "") return toast.error("Post Title is required");
-    if (categoty.trim() === "") return toast.error("Post Category is required");
-    if (descripton.trim() === "")
-      return toast.error("Post Descripton is required");
+    if (category.trim() === "") return toast.error("Post Category is required");
+    if (description.trim() === "")
+      return toast.error("Post description is required");
     if (!file) return toast.error("Post Image is required");
 
     const formData = new FormData();
     formData.append("title", title);
-    formData.append("categoty", categoty);
-    formData.append("descripton", descripton);
+    formData.append("category", category);
+    formData.append("description", description);
     formData.append("image", file);
 
-    console.log({ title, categoty, descripton, file });
+    console.log({ title, category, description, file });
   };
 
   return (
@@ -42,21 +42,21 @@ const CreatePost = () => {
         <select
           type="text"
           className="create-post-input form-children"
-          value={categoty}
-          onChange={(e) => setCategoty(e.target.value)}
+          value={category}
+          onChange={(e) => setcategory(e.target.value)}
         >
           <option value="" disabled>
-            Select A Categoty
+            Select A category
           </option>
           <option value="music">Music </option>
           <option value="coffee">coffee </option>
         </select>
         <textarea
-          value={descripton}
-          onChange={(e) => setDescripton(e.target.value)}
+          value={description}
+          onChange={(e) => setdescription(e.target.value)}
           rows="7"
           className="create-post-textatea form-children"
-          placeholder="Post Descripton"
+          placeholder="Post description"
         ></textarea>
         <input
           value={file}

@@ -12,12 +12,14 @@ import { BsFillImageFill } from "react-icons/bs";
 import { AiOutlineLike } from "react-icons/ai";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { BiEdit } from "react-icons/bi";
+import UpdatePostModel from "./UpdatePostModel";
 
 const PostDetailsPage = () => {
   const { id } = useParams();
   const post = posts.find((p) => p._id === parseInt(id));
 
   const [file, setfile] = useState(null);
+  const [updatePost, setUpdatePost] = useState(false);
 
   const updateImage = (e) => {
     e.preventDefault();
@@ -99,6 +101,7 @@ const PostDetailsPage = () => {
         </div>
         <div>
           <BiEdit
+            onClick={() => setUpdatePost(true)}
             style={{ fill: "green", marginRight: "15px", cursor: "pointer" }}
           />
           <RiDeleteBin6Line
@@ -109,6 +112,9 @@ const PostDetailsPage = () => {
       </div>
       <AddComment />
       <CommentList />
+      {updatePost && (
+        <UpdatePostModel post={post} setUpdatePost={setUpdatePost} />
+      )}
     </section>
   );
 };
