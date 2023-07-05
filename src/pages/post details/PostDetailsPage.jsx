@@ -1,28 +1,51 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+
+import AddComment from "../../components/comment/AddComment";
+import CommentList from "../../components/comment/CommentList";
+import swal from "sweetalert";
+import "./PostDetailsPage.css";
+
+import { toast } from "react-toastify";
 import { posts } from "../../dummyData";
 import { BsFillImageFill } from "react-icons/bs";
 import { AiOutlineLike } from "react-icons/ai";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { BiEdit } from "react-icons/bi";
-import "./PostDetailsPage.css";
-import { toast } from "react-toastify";
 
 const PostDetailsPage = () => {
   const { id } = useParams();
   const post = posts.find((p) => p._id === parseInt(id));
 
   const [file, setfile] = useState(null);
+
   const updateImage = (e) => {
     e.preventDefault();
     if (!file) return toast.warning("there is no file!");
-
     console.log("image update sccess");
   };
   useEffect(() => {
     window.scrollTo(0, 0);
   });
 
+  // Delete Post Handler
+  const deletePostHandler = () => {
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this post!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        swal("post has been deleted!", {
+          icon: "success",
+        });
+      } else {
+        swal("Something went wrong!");
+      }
+    });
+  };
   return (
     <section className="post-derails">
       <div className="post-derails-image-weapper">
@@ -78,9 +101,14 @@ const PostDetailsPage = () => {
           <BiEdit
             style={{ fill: "green", marginRight: "15px", cursor: "pointer" }}
           />
-          <RiDeleteBin6Line style={{ fill: "red", cursor: "pointer" }} />
+          <RiDeleteBin6Line
+            onClick={deletePostHandler}
+            style={{ fill: "red", cursor: "pointer" }}
+          />
         </div>
       </div>
+      <AddComment />
+      <CommentList />
     </section>
   );
 };
