@@ -10,6 +10,7 @@ import CreatePost from "./pages/cearte-post/CreatePost";
 import Footer from "./components/footer/Footer";
 import PostDetailsPage from "./pages/post details/PostDetailsPage";
 import { ToastContainer } from "react-toastify";
+import Category from "./pages/Category/Category";
 
 function App() {
   return (
@@ -21,9 +22,12 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/posts" element={<PostsPage />} />
-        <Route path="/posts/create-post" element={<CreatePost />} />
-        <Route path="/posts/details/:id" element={<PostDetailsPage />} />
+        <Route path="posts">
+          <Route index element={<PostsPage />} />
+          <Route path="create-post" element={<CreatePost />} />
+          <Route path="details/:id" element={<PostDetailsPage />} />
+          <Route path="categories/:category" element={<Category />} />
+        </Route>
         <Route path="/admin-dashboard" element={<AdminDashborad />} />
       </Routes>
       <Footer />
