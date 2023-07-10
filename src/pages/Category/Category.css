@@ -43,3 +43,39 @@ section {
         font-size: 25px;
     }
 }
+
+
+/* not found */
+.not-found {
+    width: 100%;
+    height: calc(100vh - 130px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.not-found h1 {
+    font-size: 50px;
+    font-weight: bold;
+    color: black
+}
+
+.not-found h1 span {
+    color: red;
+}
+
+.linl {
+    display: block;
+    color: var(--white-color);
+    background-color: var(--secondary-color);
+    font-size: 21px;
+    font-weight: 500;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.linl:hover {
+    background-color: var(--primary-color);
+}

@@ -1,13 +1,18 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
 
 import "./AddComment.css";
-const AddComment = () => {
-  const [comment, setComment] = useState("");
+import { createComment } from "../../redux/apicalls/commentApiCall";
+
+const AddComment = ({ postId }) => {
+  const dispatch = useDispatch();
+
+  const [text, setComment] = useState("");
   const addComment = (e) => {
     e.preventDefault();
-    if (comment.trim() === "") return toast.error("please write comment");
-    console.log({ comment });
+    if (text.trim() === "") return toast.error("please write comment");
+    dispatch(createComment({ text, postId }));
     setComment("");
   };
 
@@ -17,7 +22,7 @@ const AddComment = () => {
         type="text"
         placeholder="Add Comment"
         className="add-comment-input"
-        value={comment}
+        value={text}
         onChange={(e) => setComment(e.target.value)}
       />
       <button type="submit" className="add-comment-btn">

@@ -2,15 +2,19 @@ import React, { useState } from "react";
 import "./UpdateComment.css";
 import { FaTimes } from "react-icons/fa"; // x
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { updateComment } from "../../redux/apicalls/commentApiCall";
 
-const UpdateComment = ({ setUpdateComment }) => {
-  const [text, setText] = useState("");
+const UpdateComment = ({ setUpdateComment, commentForupdate }) => {
+  const dispatch = useDispatch();
+  const [text, setText] = useState(commentForupdate?.text);
 
   const formSubmitHandler = (e) => {
     e.preventDefault();
     if (text.trim() === "") return toast.error("comment is required");
 
-    console.log({ text });
+    dispatch(updateComment(commentForupdate?._id, { text }));
+    setUpdateComment(false);
   };
   return (
     <div className="update-comment">

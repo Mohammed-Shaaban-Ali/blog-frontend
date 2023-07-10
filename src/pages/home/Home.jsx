@@ -1,12 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Home.css";
 import PostList from "../../components/posts/PostList";
 
-import { posts, categories } from "../../dummyData.js";
+import { useDispatch, useSelector } from "react-redux";
+
 import Sidebar from "../../components/sidebar/Sidebar";
 import { Link } from "react-router-dom";
+import { fatechPosts } from "../../redux/apicalls/postApiCall";
 
 const Home = () => {
+  const dispatch = useDispatch();
+  const { post } = useSelector((state) => state.posts);
+  useEffect(() => {
+    dispatch(fatechPosts(1));
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <section className="home">
       <div className="home-hero-header">
@@ -18,8 +26,8 @@ const Home = () => {
       <div className="home-last-post">Lastest Posts</div>
 
       <div className="home-containar">
-        <PostList posts={posts.slice(0, 3)} />
-        <Sidebar categories={categories} />
+        <PostList posts={post} />
+        <Sidebar />
       </div>
       <div className="home-see-posts-link">
         <Link to="/posts" className="home-link">

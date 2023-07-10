@@ -1,21 +1,32 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./UpdatePostModel.css";
 import { FaTimes } from "react-icons/fa"; // x
 import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { updatepost } from "../../redux/apicalls/postApiCall";
+import { getcategories } from "../../redux/apicalls/categoruApiCall";
 
 const UpdatePostModel = ({ post, setUpdatePost }) => {
-  const [title, setTitle] = useState(post.title);
-  const [description, setDescription] = useState(post.description);
-  const [category, setCategory] = useState(post.category);
+  const dispatch = useDispatch();
+  const { categories } = useSelector((state) => state.categories);
+
+  const [titel, setTitle] = useState(post?.titel);
+  const [descrption, setDescription] = useState(post?.descrption);
+  const [category, setCategory] = useState(post?.category);
+
+  useEffect(() => {
+    dispatch(getcategories());
+  }, []);
 
   const formSubmitHandler = (e) => {
     e.preventDefault();
-    if (title.trim() === "") return toast.error("Post Title is required");
+    if (titel.trim() === "") return toast.error("Post Title is required");
     if (category.trim() === "") return toast.error("Post Category is required");
-    if (description.trim() === "")
+    if (descrption.trim() === "")
       return toast.error("Post Descripton is required");
 
-    console.log({ title, category, description });
+    dispatch(updatepost({ titel, category, descrption }, post?._id));
+    setUpdatePost(false);
   };
   return (
     <div className="update-post">
@@ -28,7 +39,7 @@ const UpdatePostModel = ({ post, setUpdatePost }) => {
         </abbr>
         <h1 className="update-post-title">Update Post </h1>
         <input
-          value={title}
+          value={titel}
           onChange={(e) => setTitle(e.target.value)}
           type="text"
           className="update-post-input"
@@ -41,11 +52,14 @@ const UpdatePostModel = ({ post, setUpdatePost }) => {
           <option disabled value="">
             Select Category
           </option>
-          <option value="music">music</option>
-          <option value="travling">travling</option>
+          {categories?.map((category) => (
+            <option key={category} value={category.titel}>
+              {category.title}
+            </option>
+          ))}
         </select>
         <textarea
-          value={description}
+          value={descrption}
           onChange={(e) => setDescription(e.target.value)}
           className="update-post-textarea"
           rows="5"

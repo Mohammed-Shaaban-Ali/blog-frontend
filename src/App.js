@@ -1,4 +1,5 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import Header from "./components/Header/Header";
 import Home from "./pages/home/Home";
@@ -21,6 +22,7 @@ import ResetPassword from "./pages/forms/ResetPassword";
 import NotFound from "./pages/not-found/NotFound";
 
 function App() {
+  const { user } = useSelector((state) => state.auth);
   return (
     <BrowserRouter>
       <ToastContainer theme="colored" position="top-right" />
@@ -28,23 +30,47 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Route
+          path="/login"
+          element={!user ? <Login /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/register"
+          element={!user ? <Register /> : <Navigate to="/" />}
+        />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/profile/:id" element={<Profile />} />
         <Route path="posts">
           <Route index element={<PostsPage />} />
-          <Route path="create-post" element={<CreatePost />} />
+          <Route
+            path="create-post"
+            element={user ? <CreatePost /> : <Navigate to="/" />}
+          />
           <Route path="details/:id" element={<PostDetailsPage />} />
           <Route path="categories/:category" element={<Category />} />
         </Route>
         <Route path="admin-dashboard">
-          <Route index element={<AdminDashborad />} />
-          <Route path="users-table" element={<AdminTable />} />
-          <Route path="posts-table" element={<PostTable />} />
-          <Route path="categories-table" element={<CategoryTable />} />
-          <Route path="commnts-table" element={<CommentsTable />} />
+          <Route
+            index
+            element={user?.isAdmin ? <AdminDashborad /> : <Navigate to="/" />}
+          />
+          <Route
+            path="users-table"
+            element={user?.isAdmin ? <AdminTable /> : <Navigate to="/" />}
+          />
+          <Route
+            path="posts-table"
+            element={user?.isAdmin ? <PostTable /> : <Navigate to="/" />}
+          />
+          <Route
+            path="categories-table"
+            element={user?.isAdmin ? <CategoryTable /> : <Navigate to="/" />}
+          />
+          <Route
+            path="commnts-table"
+            element={user?.isAdmin ? <CommentsTable /> : <Navigate to="/" />}
+          />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>

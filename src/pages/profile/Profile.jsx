@@ -1,24 +1,38 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router";
+
 import "./Profile.css";
 import PostList from "../../components/posts/PostList.js";
+import UpdateProfile from "./UpdateProfile";
+import swal from "sweetalert";
 import { posts } from "../../dummyData";
 import { BsFillCameraFill } from "react-icons/bs";
-import im11 from "../../images/user-avatar.png";
 import { toast } from "react-toastify";
-import UpdateProfile from "./UpdateProfile";
+import {
+  getUserProfile,
+  uploadeProfiletphtot,
+} from "../../redux/apicalls/profileApiCall";
 
 const Profile = () => {
+  const dispatch = useDispatch();
+  const { profile } = useSelector((state) => state.profiles);
+  const { id } = useParams();
+
   const [file, setfile] = useState(null);
   const [updateProfile, setUpdateProfile] = useState(false);
 
   useEffect(() => {
+    dispatch(getUserProfile(id));
     window.scrollTo(0, 0);
-  }, []);
+  }, [id]);
 
   const handesubmet = (e) => {
     e.preventDefault();
     if (!file) return toast.error("ther is not file");
-    console.log("image uploded");
+    const formDate = new FormData();
+    formDate.append("image", file);
+    dispatch(uploadeProfiletphtot(formDate));
   };
 
   // Delete profile Handler
@@ -45,7 +59,7 @@ const Profile = () => {
       <div className="profile-header">
         <div className="profile-image-wrapper">
           <img
-            src={file ? URL.createObjectURL(file) : im11}
+            src={file ? URL.createObjectURL(file) : profile?.profilePhoto.url}
             className="profile-image"
             alt="sh"
           />
@@ -67,13 +81,11 @@ const Profile = () => {
             </button>
           </form>
         </div>
-        <h1 className="profile-username">mohamed shaaban</h1>
-        <p className="profile-bio">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio, quas.
-        </p>
+        <h1 className="profile-username">{profile?.username}</h1>
+        <p className="profile-bio">{profile?.bio}</p>
         <div className="user-date-joined">
           <strong>Date Joined:</strong>
-          <span> fri nov 04 2022</span>
+          <span> {new Date(profile?.createdAt).toDateString()}</span>
         </div>
         <button
           onClick={() => setUpdateProfile(true)}
@@ -83,13 +95,15 @@ const Profile = () => {
         </button>
       </div>
       <div className="profile-posts-list">
-        <h2>mohamed shaaban</h2>
+        <h2>{profile?.username}</h2>
         <PostList posts={posts} />
       </div>
       <button onClick={deletePostHandler} className="delet-accont">
         Delete the account
       </button>
-      {updateProfile && <UpdateProfile setUpdateProfile={setUpdateProfile} />}
+      {updateProfile && (
+        <UpdateProfile profile={profile} setUpdateProfile={setUpdateProfile} />
+      )}
     </section>
   );
 };

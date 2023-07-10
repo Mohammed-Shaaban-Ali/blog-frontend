@@ -1,19 +1,23 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
 
 import "./Form.css";
-import { toast } from "react-toastify";
+import { loginUser } from "../../redux/apicalls/authApiCall";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const dispatch = useDispatch();
 
   const handelFoem = (e) => {
     e.preventDefault();
 
     if (email.trim() === "") return toast.error("Please enter a email");
     if (password.trim() === "") return toast.error("Please enter a password");
-    console.log({ username, email });
+    dispatch(loginUser({ email, password }));
   };
   return (
     <div className="form-container">

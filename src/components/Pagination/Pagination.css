@@ -20,7 +20,8 @@
     transition: all 0.4s ease-in-out;
 }
 
-.page:hover {
+.page:hover,
+.activ {
     color: var(--white-color);
     background-color: var(--blue-color);
 }

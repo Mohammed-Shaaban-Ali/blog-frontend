@@ -44,7 +44,7 @@
     width: 100%;
     text-align: center;
     cursor: pointer;
-    background-color: var(--primary-color);
+    background-color: #435668;
     border: none;
     font-size: 21px;
     font-weight: 500;
@@ -52,6 +52,11 @@
     padding: 10px;
     margin-bottom: 10px;
     border-radius: 10px;
+    transition: all 0.4s;
+}
+
+.form-btn:hover {
+    background-color: var(--primary-color);
 }
 
 .form-footer {

@@ -1,15 +1,15 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+
 import "./UpdateProfile.css";
 import { FaTimes } from "react-icons/fa"; // x
+import { updateProfile } from "../../redux/apicalls/profileApiCall";
 
-const user = {
-  username: "mohammed ",
-  nio: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio, quas.",
-};
+const UpdateProfile = ({ setUpdateProfile, profile }) => {
+  const dispatch = useDispatch();
 
-const UpdateProfile = ({ setUpdateProfile }) => {
-  const [username, setusername] = useState(user.username);
-  const [bio, setbio] = useState(user.nio);
+  const [username, setusername] = useState(profile.username);
+  const [bio, setbio] = useState(profile.bio);
   const [password, setpassword] = useState("");
 
   const formSubmitHandler = (e) => {
@@ -18,11 +18,9 @@ const UpdateProfile = ({ setUpdateProfile }) => {
     if (password.trim() !== "") {
       updateUser.password = password;
     }
-    // if (username.trim() === "")
-    //   return toast.error("profile username is required");
-    // if (bio.trim() === "") return toast.error("profile bio is required");
 
-    console.log(updateUser);
+    dispatch(updateProfile(profile?._id, updateUser));
+    setUpdateProfile(false);
   };
   return (
     <div className="update-profile">
