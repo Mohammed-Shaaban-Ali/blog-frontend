@@ -64,3 +64,56 @@ export function updateProfile(id, profile) {
     }
   };
 }
+
+// delete  proflie info
+export function deleteProfile(id) {
+  return async (disPatch, getState) => {
+    try {
+      disPatch(profileAction.setLoding());
+      const { data } = await request.delete(`/api/users/profile/${id}`, {
+        headers: {
+          Authorization: "Bearer " + getState().auth.user.token,
+        },
+      });
+
+      disPatch(profileAction.setisAccountDeleted());
+      toast.success(data?.message);
+      setTimeout(() => {
+        disPatch(profileAction.clearisAccountDeleted());
+      }, 3000);
+    } catch (error) {
+      toast.error(error.response.data.message);
+      disPatch(profileAction.clearLoding());
+    }
+  };
+}
+// get All Profiles
+export function getAllProfiles() {
+  return async (disPatch, getState) => {
+    try {
+      const { data } = await request.get(`/api/users/profile`, {
+        headers: {
+          Authorization: "Bearer " + getState().auth.user.token,
+        },
+      });
+      disPatch(profileAction.setAllProfiles(data));
+    } catch (error) {
+      disPatch(profileAction.clearLoding());
+    }
+  };
+}
+// get count
+export function getprofileCount() {
+  return async (disPatch, getState) => {
+    try {
+      const { data } = await request.get(`/api/users/count`, {
+        headers: {
+          Authorization: "Bearer " + getState().auth.user.token,
+        },
+      });
+      disPatch(profileAction.setprofileCount(data));
+    } catch (error) {
+      disPatch(profileAction.clearLoding());
+    }
+  };
+}

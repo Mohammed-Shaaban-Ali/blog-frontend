@@ -8,8 +8,8 @@ import { updateProfile } from "../../redux/apicalls/profileApiCall";
 const UpdateProfile = ({ setUpdateProfile, profile }) => {
   const dispatch = useDispatch();
 
-  const [username, setusername] = useState(profile.username);
-  const [bio, setbio] = useState(profile.bio);
+  const [username, setusername] = useState(profile?.username);
+  const [bio, setbio] = useState(profile?.bio || "");
   const [password, setpassword] = useState("");
 
   const formSubmitHandler = (e) => {

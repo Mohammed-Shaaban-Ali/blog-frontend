@@ -47,7 +47,7 @@ const CommentList = ({ comments, user }) => {
           </div>
           <p className="comment-item-text">{comment?.text}</p>
           <div className="comment-item-icon-wrapper">
-            {user?._id === comments?.user && (
+            {user?._id === comment?.user && (
               <>
                 <BiEdit
                   onClick={() => updateCommentHandel(comment)}

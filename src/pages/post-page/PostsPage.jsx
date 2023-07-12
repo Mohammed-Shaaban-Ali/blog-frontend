@@ -1,7 +1,6 @@
 import "./PostsPage.css";
 import PostList from "../../components/posts/PostList";
 import Sidebar from "../../components/sidebar/Sidebar";
-import { categories } from "../../dummyData";
 import Pagination from "../../components/Pagination/Pagination";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -21,10 +20,10 @@ const PostsPage = () => {
   useEffect(() => {
     dispatch(fatechPosts(currentPage));
     window.scrollTo(0, 0);
-  }, [currentPage]);
+  }, [currentPage, dispatch]);
   useEffect(() => {
     dispatch(fatechPostsCount());
-  }, []);
+  }, [dispatch]);
   return (
     <>
       <div className="post-page">

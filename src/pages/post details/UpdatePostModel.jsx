@@ -16,7 +16,7 @@ const UpdatePostModel = ({ post, setUpdatePost }) => {
 
   useEffect(() => {
     dispatch(getcategories());
-  }, []);
+  }, [dispatch]);
 
   const formSubmitHandler = (e) => {
     e.preventDefault();

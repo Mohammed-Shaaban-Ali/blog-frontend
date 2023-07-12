@@ -3,7 +3,11 @@ import { Link } from "react-router-dom";
 
 import "./post.css";
 
-const PostItem = ({ post }) => {
+const PostItem = ({ post, username, userId }) => {
+  const ProfileLink = userId
+    ? `/profile/${userId}`
+    : `/posts/categories/${post?.category}`;
+
   return (
     <div className="post-item">
       <div className="post-item-image-wrapper">
@@ -18,11 +22,8 @@ const PostItem = ({ post }) => {
         <div className="post-item-info">
           <div className="post-item-author">
             <strong>Author: </strong>
-            <Link
-              className="post-item-username"
-              to={`/profile/${post?.user?._id}`}
-            >
-              {post?.user?.username}
+            <Link className="post-item-username" to={ProfileLink}>
+              {username ? username : post?.user?.username}
             </Link>
           </div>
           <div className="post-item-date">

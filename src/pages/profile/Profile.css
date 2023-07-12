@@ -1,5 +1,14 @@
 .profile {
     padding: 30px;
+    width: 100%;
+    min-height: calc(100vh - 130px);
+}
+
+.loding {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
 }
 
 .profile-header {

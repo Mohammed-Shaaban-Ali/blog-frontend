@@ -43,7 +43,7 @@ const CreatePost = () => {
 
   useEffect(() => {
     dispatch(getcategories());
-  }, []);
+  }, [dispatch]);
 
   return (
     <section className="create-post">

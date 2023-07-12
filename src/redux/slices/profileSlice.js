@@ -4,6 +4,10 @@ const peofileSlice = createSlice({
   name: "profile",
   initialState: {
     profile: null,
+    loading: false,
+    isAccountDeleted: false,
+    profileCount: null,
+    allprofiles: [],
   },
   reducers: {
     setProfile(state, action) {
@@ -14,6 +18,25 @@ const peofileSlice = createSlice({
     },
     updateProfile(state, action) {
       state.profile = action.payload;
+    },
+    setLoding(state) {
+      state.loading = true;
+    },
+    clearLoding(state) {
+      state.loading = false;
+    },
+    setisAccountDeleted(state) {
+      state.isAccountDeleted = true;
+    },
+    clearisAccountDeleted(state) {
+      state.isAccountDeleted = false;
+      state.loading = false;
+    },
+    setprofileCount(state, action) {
+      state.profileCount = action.payload;
+    },
+    setAllProfiles(state, action) {
+      state.allprofiles = action.payload;
     },
   },
 });

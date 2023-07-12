@@ -16,7 +16,7 @@ const Category = () => {
   useEffect(() => {
     dispatch(fatechPostscategory(category));
     window.scrollTo(0, 0);
-  }, [category]);
+  }, [category, dispatch]);
   return (
     <section className="category">
       {postCate.length === 0 ? (

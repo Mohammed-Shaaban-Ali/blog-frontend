@@ -2,6 +2,17 @@ import request from "../../pages/utils/request.js";
 import { toast } from "react-toastify";
 import { postAction } from "../slices/postSlice.js";
 
+// get All post
+export function getAllPosts() {
+  return async (disPatch) => {
+    try {
+      const { data } = await request.get(`/api/posts`);
+      disPatch(postAction.setpost(data));
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  };
+}
 // fatech post for page number
 export function fatechPosts(pageNumber) {
   return async (disPatch) => {
@@ -40,7 +51,7 @@ export function fatechPostscategory(category) {
   };
 }
 
-// creat post
+// create post
 export function creatPost(newpost) {
   return async (disPatch, getState) => {
     try {
@@ -134,6 +145,22 @@ export function deletepost(postId) {
       });
       disPatch(postAction.deletepost(data.postId));
       toast.success(data.message);
+    } catch (error) {
+      toast.error(error?.response?.data?.message);
+    }
+  };
+}
+
+// setPostsCount
+export function getPostsCount() {
+  return async (disPatch, getState) => {
+    try {
+      const { data } = await request.get(`/api/posts/count`, {
+        headers: {
+          Authorization: "Bearer " + getState().auth.user.token,
+        },
+      });
+      disPatch(postAction.setPostsCount(data));
     } catch (error) {
       toast.error(error?.response?.data?.message);
     }

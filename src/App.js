@@ -20,6 +20,7 @@ import CommentsTable from "./pages/admin/comment table/CommentsTable";
 import ForgotPassword from "./pages/forms/ForgotPassword";
 import ResetPassword from "./pages/forms/ResetPassword";
 import NotFound from "./pages/not-found/NotFound";
+import VerfyEmail from "./pages/verfy-email/VerfyEmail";
 
 function App() {
   const { user } = useSelector((state) => state.auth);
@@ -28,19 +29,28 @@ function App() {
       <ToastContainer theme="colored" position="top-right" />
 
       <Header />
+
       <Routes>
         <Route path="/" element={<Home />} />
+
         <Route
           path="/login"
           element={!user ? <Login /> : <Navigate to="/" />}
         />
+
         <Route
           path="/register"
           element={!user ? <Register /> : <Navigate to="/" />}
         />
+        <Route
+          path="/users/:userId/verify/:token"
+          element={!user ? <VerfyEmail /> : <Navigate to="/" />}
+        />
+
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/profile/:id" element={<Profile />} />
+
         <Route path="posts">
           <Route index element={<PostsPage />} />
           <Route
@@ -50,6 +60,7 @@ function App() {
           <Route path="details/:id" element={<PostDetailsPage />} />
           <Route path="categories/:category" element={<Category />} />
         </Route>
+
         <Route path="admin-dashboard">
           <Route
             index
@@ -68,7 +79,7 @@ function App() {
             element={user?.isAdmin ? <CategoryTable /> : <Navigate to="/" />}
           />
           <Route
-            path="commnts-table"
+            path="comment-table"
             element={user?.isAdmin ? <CommentsTable /> : <Navigate to="/" />}
           />
         </Route>

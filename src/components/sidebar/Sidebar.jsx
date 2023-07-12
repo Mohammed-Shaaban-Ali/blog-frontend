@@ -9,7 +9,7 @@ const Sidebar = () => {
   const { categories } = useSelector((state) => state.categories);
   useEffect(() => {
     dispatch(getcategories());
-  }, []);
+  }, [dispatch]);
   return (
     <div className="sidebar">
       <div className="sidebar-title">CATEGORY</div>

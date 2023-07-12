@@ -1,11 +1,22 @@
-import { Link } from "react-router-dom";
 import "./CategoryTable.css";
 import AdminSidebar from "../AdminSidebar";
 import swal from "sweetalert";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
+import {
+  deletecategories,
+  getcategories,
+} from "../../../redux/apicalls/categoruApiCall";
 
 const CategoryTable = () => {
+  const dispatch = useDispatch();
+  const { categories } = useSelector((state) => state.categories);
+
+  useEffect(() => {
+    dispatch(getcategories());
+  }, [dispatch]);
   // Delete category Handler
-  const deletecategoryHandler = () => {
+  const deletecategoryHandler = (id) => {
     swal({
       title: "Are you sure?",
       text: "Once deleted, you will not be able to recover this category!",
@@ -14,11 +25,7 @@ const CategoryTable = () => {
       dangerMode: true,
     }).then((willDelete) => {
       if (willDelete) {
-        swal("category has been deleted!", {
-          icon: "success",
-        });
-      } else {
-        swal("Something went wrong!");
+        dispatch(deletecategories(id));
       }
     });
   };
@@ -36,14 +43,17 @@ const CategoryTable = () => {
             </tr>
           </thead>
           <tbody>
-            {[1, 2, 3].map((item) => (
-              <tr key={item}>
-                <td>{item}</td>
+            {categories.map((item, index) => (
+              <tr key={item._id}>
+                <td>{index + 1}</td>
 
-                <td className="table-username">music</td>
+                <td className="table-username">{item.title}</td>
                 <td>
                   <div className="table-button-group">
-                    <button onClick={deletecategoryHandler} className="delete">
+                    <button
+                      onClick={() => deletecategoryHandler(item._id)}
+                      className="delete"
+                    >
                       Delete category
                     </button>
                   </div>

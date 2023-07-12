@@ -1,14 +1,19 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
+import { aaddcategories } from "../../redux/apicalls/categoruApiCall";
 
 const AddCategoryForm = () => {
+  const dispatch = useDispatch();
+
   const [title, settitle] = useState("");
 
   const handelForm = (e) => {
     e.preventDefault();
 
     if (title.trim() === "") return toast.error("Enter the Category ");
-    console.log({ title });
+    dispatch(aaddcategories({ title }));
+    settitle("");
   };
 
   return (

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-
+import { useNavigate } from "react-router-dom";
 import { MdArrowDropDown } from "react-icons/md";
 import { MdArrowDropUp } from "react-icons/md";
 import { logoutUser } from "../../redux/apicalls/authApiCall";
@@ -11,10 +11,11 @@ const Right = () => {
   const [dropdown, setDropdown] = useState(false);
 
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const handelLogout = () => {
     setDropdown(false);
     dispatch(logoutUser());
+    navigate("/");
   };
 
   return (

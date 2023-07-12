@@ -1,0 +1,36 @@
+.verfy {
+    width: 100%;
+    height: calc(100vh - 130px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.verfy-title {
+    font-size: 32px;
+    color: green;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.verfy-like {
+    font-size: 24px;
+    font-weight: 600;
+    background-color: #3e5872;
+    margin: 5px;
+    border-radius: 5px;
+    padding: 5px 10px;
+    color: var(--white-color);
+    transition: all 0.3s;
+}
+
+.verfy-like:hover {
+    background-color: var(--primary-color);
+}
+
+.verfy-not-found {
+    font-size: 60px;
+    font-weight: bold;
+    color: red;
+}

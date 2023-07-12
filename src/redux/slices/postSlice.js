@@ -9,6 +9,7 @@ const peofileSlice = createSlice({
     lodding: false,
     isPostCreated: false,
     onePost: null,
+    PostsCount: null,
   },
   reducers: {
     setpost(state, action) {
@@ -56,6 +57,9 @@ const peofileSlice = createSlice({
       );
       const indx = state.onePost.comments.indexOf(comment);
       state.onePost.comments.splice(indx, 1);
+    },
+    setPostsCount(state, action) {
+      state.PostsCount = action.payload;
     },
   },
 });

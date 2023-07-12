@@ -42,7 +42,7 @@ const PostDetailsPage = () => {
   useEffect(() => {
     dispatch(fatechSinglePost(id));
     window.scrollTo(0, 0);
-  }, [id]);
+  }, [id, dispatch]);
 
   // Delete Post Handler
   const deletePostHandler = () => {
@@ -144,7 +144,7 @@ const PostDetailsPage = () => {
         </p>
       )}
 
-      <CommentList comments={onePost?.comments} />
+      <CommentList user={user} comments={onePost?.comments} />
       {updatePost && (
         <UpdatePostModel
           user={user}

@@ -1,11 +1,23 @@
 import "./CommentsTable.css";
 import AdminSidebar from "../AdminSidebar";
-import imagepath from "../../../images/user-avatar.png";
 import swal from "sweetalert";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  deleteComment,
+  getAllcomments,
+} from "../../../redux/apicalls/commentApiCall";
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const CommentsTable = () => {
+  const dispatch = useDispatch();
+  const { comments } = useSelector((state) => state.comments);
+
+  useEffect(() => {
+    dispatch(getAllcomments());
+  }, [dispatch, comments]);
   // Delete comment Handler
-  const deletecommentHandler = () => {
+  const deletecommentHandler = (id) => {
     swal({
       title: "Are you sure?",
       text: "Once deleted, you will not be able to recover this comment!",
@@ -14,11 +26,7 @@ const CommentsTable = () => {
       dangerMode: true,
     }).then((willDelete) => {
       if (willDelete) {
-        swal("comment has been deleted!", {
-          icon: "success",
-        });
-      } else {
-        swal("Something went wrong!");
+        dispatch(deleteComment(id));
       }
     });
   };
@@ -37,19 +45,31 @@ const CommentsTable = () => {
             </tr>
           </thead>
           <tbody>
-            {[1, 2, 3, 4].map((item) => (
-              <tr key={item}>
-                <td>{item}</td>
+            {comments?.map((item, i) => (
+              <tr key={i}>
+                <td>{i + 1}</td>
                 <td>
                   <div className="table-image-wrapper">
-                    <img src={imagepath} alt="image" className="table-image" />
-                    <span className="table-username">mohamed shaaban</span>
+                    <img
+                      src={item.user.profilePhoto.url}
+                      alt="post"
+                      className="table-image"
+                    />
+                    <span className="table-username">{item.username}</span>
                   </div>
                 </td>
-                <td className="table-username">thank you</td>
+                <td className="table-username">{item.text}</td>
                 <td>
                   <div className="table-button-group">
-                    <button onClick={deletecommentHandler} className="delete">
+                    <button className="view">
+                      <Link to={`/posts/details/${item.postId}`}>
+                        View Post
+                      </Link>
+                    </button>
+                    <button
+                      onClick={() => deletecommentHandler(item._id)}
+                      className="delete"
+                    >
                       Delete comment
                     </button>
                   </div>

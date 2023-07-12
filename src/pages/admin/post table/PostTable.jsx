@@ -1,13 +1,19 @@
 import { Link } from "react-router-dom";
-import { posts } from "../../../dummyData";
 import "./PostTable.css";
 import AdminSidebar from "../AdminSidebar";
-import imagepath from "../../../images/user-avatar.png";
 import swal from "sweetalert";
+import { useSelector, useDispatch } from "react-redux";
+import { deletepost, getAllPosts } from "../../../redux/apicalls/postApiCall";
+import { useEffect } from "react";
 
 const PostTable = () => {
+  const dispatch = useDispatch();
+  const { post: posts } = useSelector((state) => state.posts);
+  useEffect(() => {
+    dispatch(getAllPosts());
+  }, [dispatch]);
   // Delete post Handler
-  const deletepostHandler = () => {
+  const deletepostHandler = (id) => {
     swal({
       title: "Are you sure?",
       text: "Once deleted, you will not be able to recover this post!",
@@ -16,11 +22,7 @@ const PostTable = () => {
       dangerMode: true,
     }).then((willDelete) => {
       if (willDelete) {
-        swal("post has been deleted!", {
-          icon: "success",
-        });
-      } else {
-        swal("Something went wrong!");
+        dispatch(deletepost(id));
       }
     });
   };
@@ -44,17 +46,24 @@ const PostTable = () => {
                 <td>{index + 1}</td>
                 <td>
                   <div className="table-image-wrapper">
-                    <img src={imagepath} alt="image" className="table-image" />
+                    <img
+                      src={post.user.profilePhoto.url}
+                      alt="post"
+                      className="table-image"
+                    />
                     <span className="table-username">{post.user.username}</span>
                   </div>
                 </td>
-                <td className="table-username">{post.title}</td>
+                <td className="table-username">{post.titel}</td>
                 <td>
                   <div className="table-button-group">
                     <button className="view">
                       <Link to={`/posts/details/${post._id}`}>View Post</Link>
                     </button>
-                    <button onClick={deletepostHandler} className="delete">
+                    <button
+                      onClick={() => deletepostHandler(post._id)}
+                      className="delete"
+                    >
                       Delete Post
                     </button>
                   </div>
