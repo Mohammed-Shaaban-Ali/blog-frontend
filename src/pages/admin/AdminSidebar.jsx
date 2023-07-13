@@ -22,7 +22,7 @@ const AdminSidebar = () => {
         </Link>
         <Link
           className="admin-sidebar-link"
-          to="/admin-dashboard/commnts-table"
+          to="/admin-dashboard/comment-table"
         >
           Comments
         </Link>

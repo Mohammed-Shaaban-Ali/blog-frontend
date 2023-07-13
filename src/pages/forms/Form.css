@@ -65,6 +65,12 @@
     color: var(--dark-color);
 }
 
+.verfy-not-found {
+    font-size: 60px;
+    font-weight: bold;
+    color: red;
+}
+
 @media screen and (max-width: 520px) {
     .form {
         width: 100%;

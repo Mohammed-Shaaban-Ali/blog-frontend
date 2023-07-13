@@ -140,7 +140,7 @@ const PostDetailsPage = () => {
         <AddComment postId={onePost?._id} />
       ) : (
         <p style={{ fontSize: "16px", color: "gray" }}>
-          to write a comment lohin first
+          to write a comment login first
         </p>
       )}
 

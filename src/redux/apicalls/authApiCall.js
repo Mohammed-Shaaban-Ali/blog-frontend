@@ -40,9 +40,7 @@ export function verifyEmail(userId, token) {
   return async (dispatch) => {
     try {
       await request.get(`/api/auth/${userId}/verify/${token}`);
-      console.log("1");
       dispatch(authAction.setisEmailVerified());
-      console.log("1");
     } catch (error) {
       console.log(error);
     }

@@ -77,7 +77,7 @@ const CreatePost = () => {
                 Select A category
               </option>
               {categories?.map((category) => (
-                <option key={category} value={category.titel}>
+                <option key={category._id} value={category.titel}>
                   {category.title}
                 </option>
               ))}

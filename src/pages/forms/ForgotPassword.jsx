@@ -1,15 +1,18 @@
 import { useState } from "react";
 import "./Form.css";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { fogeotPassword } from "../../redux/apicalls/posswordApiCall";
 
 const ForgotPassword = () => {
+  const dispatch = useDispatch();
+
   const [email, setEmail] = useState("");
 
   const handelFoem = (e) => {
     e.preventDefault();
-
     if (email.trim() === "") return toast.error("Please enter a email");
-    console.log({ email });
+    dispatch(fogeotPassword(email));
   };
   return (
     <div className="form-container">
