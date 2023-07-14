@@ -35,8 +35,7 @@
     align-items: center;
 }
 
-.nav-like,
-.active {
+.nav-like {
     margin: 0 12px;
     cursor: pointer;
     font-size: 21px;
@@ -150,7 +149,7 @@
         background-color: var(--blue-color);
         width: 100%;
         clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
-        transition: all 0.7s ease-in;
+        transition: all 0.5s ease-in;
     }
 
     .nav-likes {

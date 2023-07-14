@@ -16,14 +16,18 @@ const Center = ({ toggel, setToggrl }) => {
         <NavLink
           to="/"
           onClick={() => setToggrl(false)}
-          className={({ isActive }) => (isActive ? "active" : "nav-like")}
+          className={({ isActive }) =>
+            isActive ? "nav-like active" : "nav-like"
+          }
         >
           Home
         </NavLink>
         <NavLink
           to="/posts"
           onClick={() => setToggrl(false)}
-          className={({ isActive }) => (isActive ? "active" : "nav-like")}
+          className={({ isActive }) =>
+            isActive ? "nav-like active" : "nav-like"
+          }
         >
           Posts
         </NavLink>
