@@ -1,3 +1,7 @@
+.home {
+    min-height: calc(100vh - 130px);
+}
+
 .home-hero-header {
     background: url("../../images//home-bg.jpg");
     width: 100%;

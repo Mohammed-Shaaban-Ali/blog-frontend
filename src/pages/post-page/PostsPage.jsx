@@ -8,34 +8,60 @@ import {
   fatechPosts,
   fatechPostsCount,
 } from "../../redux/apicalls/postApiCall";
+import { RotatingLines } from "react-loader-spinner";
 
 const PostsPage = () => {
   const postsValues = 3;
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
+  const [loding, setLoding] = useState(true);
 
   const { post, postCount } = useSelector((state) => state.posts);
   const pages = Math.ceil(postCount / postsValues);
 
   useEffect(() => {
-    dispatch(fatechPosts(currentPage));
-    window.scrollTo(0, 0);
+    async function fatech() {
+      window.scrollTo(0, 0);
+      await dispatch(fatechPosts(currentPage));
+      setLoding(false);
+    }
+    fatech();
   }, [currentPage, dispatch]);
+
   useEffect(() => {
     dispatch(fatechPostsCount());
   }, [dispatch]);
   return (
-    <>
-      <div className="post-page">
-        <PostList posts={post} />
-        <Sidebar />
-      </div>
-      <Pagination
-        pages={pages}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-      />
-    </>
+    <section>
+      {loding ? (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <RotatingLines
+            strokeColor="blue"
+            strokeWidth="5"
+            animationDuration="0.75"
+            width="96"
+            visible={true}
+          />
+        </div>
+      ) : (
+        <div className="post-page">
+          <PostList posts={post} />
+          <Sidebar />
+        </div>
+      )}
+      {!loding && (
+        <Pagination
+          pages={pages}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        />
+      )}
+    </section>
   );
 };
 

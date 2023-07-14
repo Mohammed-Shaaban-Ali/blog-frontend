@@ -18,18 +18,21 @@ import { logoutUser } from "../../redux/apicalls/authApiCall";
 const Profile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { profile, loding, isAccountDeleted } = useSelector(
-    (state) => state.profiles
-  );
+  const { profile, isAccountDeleted } = useSelector((state) => state.profiles);
   const { user } = useSelector((state) => state.auth);
   const { id } = useParams();
 
   const [file, setfile] = useState(null);
+  const [lod, setLod] = useState(true);
   const [updateProfile, setUpdateProfile] = useState(false);
 
   useEffect(() => {
-    dispatch(getUserProfile(id));
-    window.scrollTo(0, 0);
+    async function fatech() {
+      await dispatch(getUserProfile(id));
+      window.scrollTo(0, 0);
+      setLod(false);
+    }
+    fatech();
   }, [id, dispatch]);
 
   useEffect(() => {
@@ -64,13 +67,13 @@ const Profile = () => {
 
   return (
     <section className="profile">
-      {loding ? (
+      {lod ? (
         <div className="loding">
           <RotatingLines
             strokeColor="blue"
             strokeWidth="5"
             animationDuration="0.75"
-            width="150"
+            width="130"
             visible={true}
           />
         </div>

@@ -214,4 +214,8 @@
         width: 65px;
         height: 30px;
     }
+
+    .header-right-username-title {
+        font-size: 12px;
+    }
 }
