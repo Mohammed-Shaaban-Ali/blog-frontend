@@ -184,7 +184,7 @@
     }
 
     .header-menu {
-        left: 36%;
+        left: 50%;
     }
 
     .header-right-user-info {
@@ -202,9 +202,11 @@
         right: 15%;
     }
 
-    .header-right-username-title {
-        font-size: 16px;
+    .header-right-username {
+        display: none;
     }
+
+
 }
 
 @media screen and (max-width: 345px) {

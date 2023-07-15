@@ -55,7 +55,7 @@ const Home = () => {
             <PostList posts={post} />
             <Sidebar />
           </div>
-          {post.lenght > 0 && (
+          {post.lenght > 3 && (
             <div className="home-see-posts-link">
               <Link to="/posts" className="home-link">
                 See All Posts

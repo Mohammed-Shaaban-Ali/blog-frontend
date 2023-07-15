@@ -51,6 +51,7 @@ const PostsPage = () => {
       ) : (
         <div className="post-page">
           <PostList posts={post} />
+
           <Sidebar />
         </div>
       )}

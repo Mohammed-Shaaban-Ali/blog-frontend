@@ -1,3 +1,4 @@
+import { current } from "@reduxjs/toolkit";
 import "./Pagination.css";
 const Pagination = ({ setCurrentPage, currentPage, pages }) => {
   const generatedPages = [];
@@ -6,14 +7,13 @@ const Pagination = ({ setCurrentPage, currentPage, pages }) => {
   }
   return (
     <div className="pagination">
-      {currentPage !== 1 && (
-        <div
-          onClick={() => setCurrentPage((e) => e - 1)}
-          className="page previous"
-        >
-          Previous
-        </div>
-      )}
+      <button
+        disabled={currentPage === 1}
+        onClick={() => setCurrentPage((e) => e - 1)}
+        className={currentPage === 1 ? "page previous nul" : "page previous"}
+      >
+        Previous
+      </button>
       {generatedPages.map((p) => (
         <div
           onClick={() => setCurrentPage(p)}
@@ -23,11 +23,14 @@ const Pagination = ({ setCurrentPage, currentPage, pages }) => {
           {p}
         </div>
       ))}
-      {currentPage !== pages && (
-        <div onClick={() => setCurrentPage((e) => e + 1)} className="page next">
-          Next
-        </div>
-      )}
+
+      <button
+        disabled={currentPage === pages}
+        onClick={() => setCurrentPage((e) => e + 1)}
+        className={currentPage === pages ? "page next nul " : "page next"}
+      >
+        Next
+      </button>
     </div>
   );
 };

@@ -28,13 +28,20 @@
 
 .previous,
 .next {
-    width: max-content;
+    width: 70px;
     padding: 0px 7px;
 
 }
 
 .previous {
     border-radius: 10px 0 0 10px;
+
+}
+
+.nul:hover {
+    background-color: red;
+    color: #fff;
+    cursor: not-allowed;
 }
 
 .next {

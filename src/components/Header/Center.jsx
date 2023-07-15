@@ -35,7 +35,9 @@ const Center = ({ toggel, setToggrl }) => {
           <NavLink
             to="/posts/create-post"
             onClick={() => setToggrl(false)}
-            className={({ isActive }) => (isActive ? "active" : "nav-like")}
+            className={({ isActive }) =>
+              isActive ? "nav-like active" : "nav-like"
+            }
           >
             Create
           </NavLink>
@@ -45,7 +47,9 @@ const Center = ({ toggel, setToggrl }) => {
           <NavLink
             to="/admin-dashboard"
             onClick={() => setToggrl(false)}
-            className={({ isActive }) => (isActive ? "active" : "nav-like")}
+            className={({ isActive }) =>
+              isActive ? "nav-like active" : "nav-like"
+            }
           >
             Dashboard
           </NavLink>

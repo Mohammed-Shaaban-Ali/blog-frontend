@@ -20,6 +20,7 @@ import {
   handellikePost,
   updatepostImage,
 } from "../../redux/apicalls/postApiCall";
+import { RotatingLines } from "react-loader-spinner";
 
 const PostDetailsPage = () => {
   const dispatch = useDispatch();
@@ -30,6 +31,7 @@ const PostDetailsPage = () => {
 
   const [file, setfile] = useState(null);
   const [updatePost, setUpdatePost] = useState(false);
+  const [lodding, setLodding] = useState(true);
 
   const updateImage = (e) => {
     e.preventDefault();
@@ -40,8 +42,12 @@ const PostDetailsPage = () => {
   };
 
   useEffect(() => {
-    dispatch(fatechSinglePost(id));
-    window.scrollTo(0, 0);
+    async function fetch() {
+      await dispatch(fatechSinglePost(id));
+      window.scrollTo(0, 0);
+      setLodding(false);
+    }
+    fetch();
   }, [id, dispatch]);
 
   // Delete Post Handler
@@ -65,92 +71,117 @@ const PostDetailsPage = () => {
 
   return (
     <section className="post-derails">
-      <div className="post-derails-image-weapper">
-        <img
-          src={file ? URL.createObjectURL(file) : onePost?.image?.url}
-          alt={onePost?.title}
-          className="post-derails-image"
-        />
-        {user?._id === onePost?.user?._id && (
-          <form onSubmit={updateImage} className="update-post-image-form">
-            <label htmlFor="file" className="update-post-label">
-              <BsFillImageFill className="image-icon" /> Select New Image
-            </label>
-            <input
-              style={{ display: "none" }}
-              type="file"
-              name="file"
-              id="file"
-              onChange={(e) => setfile(e.target.files[0])}
-            />
-            <button type="submit">Uploade</button>
-          </form>
-        )}
-      </div>
-      <h1 className="post-derails-title">{onePost?.titel}</h1>
-      <div className="post-derails-info">
-        <img
-          src={onePost?.user.profilePhoto.url}
-          alt={onePost?.user.profilePhoto}
-          className="post-derails-user-image"
-        />
-        <div className="post-details-user">
-          <strong>
-            <Link to={`/profile/${onePost?.user?._id}`}>
-              {onePost?.user?.username}
-            </Link>
-          </strong>
-          <span>{new Date(onePost?.createdAt).toDateString()}</span>
+      {lodding ? (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            margin: "auto",
+          }}
+        >
+          <RotatingLines
+            strokeColor="blue"
+            strokeWidth="5"
+            animationDuration="0.75"
+            width="96"
+            visible={true}
+          />
         </div>
-      </div>
-      <p className="post-derails-description">{onePost?.descrption}</p>
-      <div className="post-derails-icon">
-        <div>
-          {user && (
-            <>
-              {onePost?.linkes.includes(user._id) ? (
-                <AiFillLike
-                  onClick={() => dispatch(handellikePost(onePost?._id))}
-                  className="post-derails-icon-like"
-                />
-              ) : (
-                <AiOutlineLike
-                  onClick={() => dispatch(handellikePost(onePost?._id))}
-                  className="post-derails-icon-like"
-                />
-              )}
-            </>
-          )}
-          <small>{onePost?.linkes?.length} likes</small>
-        </div>
-        {user?._id === onePost?.user?._id && (
-          <div>
-            <BiEdit
-              onClick={() => setUpdatePost(true)}
-              style={{ fill: "green", marginRight: "15px", cursor: "pointer" }}
-            />
-            <RiDeleteBin6Line
-              onClick={deletePostHandler}
-              style={{ fill: "red", cursor: "pointer" }}
-            />
-          </div>
-        )}
-      </div>
-      {user ? (
-        <AddComment postId={onePost?._id} />
       ) : (
-        <p style={{ fontSize: "16px", color: "gray" }}>
-          to write a comment login first
-        </p>
-      )}
+        <>
+          <div className="post-derails-image-weapper">
+            <img
+              src={file ? URL.createObjectURL(file) : onePost?.image?.url}
+              alt={onePost?.title}
+              className="post-derails-image"
+            />
+            {user?._id === onePost?.user?._id && (
+              <form onSubmit={updateImage} className="update-post-image-form">
+                <label htmlFor="file" className="update-post-label">
+                  <BsFillImageFill className="image-icon" /> Select New Image
+                </label>
+                <input
+                  style={{ display: "none" }}
+                  type="file"
+                  name="file"
+                  id="file"
+                  onChange={(e) => setfile(e.target.files[0])}
+                />
+                <button type="submit">Uploade</button>
+              </form>
+            )}
+          </div>
+          <h1 className="post-derails-title">{onePost?.titel}</h1>
+          <div className="post-derails-info">
+            <img
+              src={onePost?.user.profilePhoto.url}
+              alt={onePost?.user.profilePhoto}
+              className="post-derails-user-image"
+            />
+            <div className="post-details-user">
+              <strong>
+                <Link to={`/profile/${onePost?.user?._id}`}>
+                  {onePost?.user?.username}
+                </Link>
+              </strong>
+              <span>{new Date(onePost?.createdAt).toDateString()}</span>
+            </div>
+          </div>
+          <p className="post-derails-description">{onePost?.descrption}</p>
+          <div className="post-derails-icon">
+            <div>
+              {user && (
+                <>
+                  {onePost?.linkes.includes(user._id) ? (
+                    <AiFillLike
+                      onClick={() => dispatch(handellikePost(onePost?._id))}
+                      className="post-derails-icon-like"
+                    />
+                  ) : (
+                    <AiOutlineLike
+                      onClick={() => dispatch(handellikePost(onePost?._id))}
+                      className="post-derails-icon-like"
+                    />
+                  )}
+                </>
+              )}
+              <small>{onePost?.linkes?.length} likes</small>
+            </div>
+            {user?._id === onePost?.user?._id && (
+              <div>
+                <BiEdit
+                  onClick={() => setUpdatePost(true)}
+                  style={{
+                    fill: "green",
+                    marginRight: "15px",
+                    cursor: "pointer",
+                  }}
+                />
+                <RiDeleteBin6Line
+                  onClick={deletePostHandler}
+                  style={{ fill: "red", cursor: "pointer" }}
+                />
+              </div>
+            )}
+          </div>
+          {user ? (
+            <AddComment postId={onePost?._id} />
+          ) : (
+            <p style={{ fontSize: "16px", color: "gray" }}>
+              to write a comment login first
+            </p>
+          )}
 
-      <CommentList user={user} comments={onePost?.comments} />
-      {updatePost && (
-        <UpdatePostModel
-          user={user}
-          post={onePost}
-          setUpdatePost={setUpdatePost}
-        />
+          <CommentList user={user} comments={onePost?.comments} />
+          {updatePost && (
+            <UpdatePostModel
+              user={user}
+              post={onePost}
+              setUpdatePost={setUpdatePost}
+            />
+          )}
+        </>
       )}
     </section>
   );
