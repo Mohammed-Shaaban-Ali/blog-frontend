@@ -115,8 +115,8 @@ const PostDetailsPage = () => {
           <h1 className="post-derails-title">{onePost?.titel}</h1>
           <div className="post-derails-info">
             <img
-              src={onePost?.user.profilePhoto.url}
-              alt={onePost?.user.profilePhoto}
+              src={onePost?.user?.profilePhoto?.url}
+              alt={onePost?.user?.profilePhoto}
               className="post-derails-user-image"
             />
             <div className="post-details-user">
@@ -133,7 +133,7 @@ const PostDetailsPage = () => {
             <div>
               {user && (
                 <>
-                  {onePost?.linkes.includes(user._id) ? (
+                  {onePost?.linkes.includes(user?._id) ? (
                     <AiFillLike
                       onClick={() => dispatch(handellikePost(onePost?._id))}
                       className="post-derails-icon-like"

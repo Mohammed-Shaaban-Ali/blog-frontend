@@ -41,27 +41,29 @@ const PostTable = () => {
             </tr>
           </thead>
           <tbody>
-            {posts.map((post, index) => (
+            {posts?.map((post, index) => (
               <tr key={index}>
                 <td>{index + 1}</td>
                 <td>
                   <div className="table-image-wrapper">
                     <img
-                      src={post.user.profilePhoto.url}
+                      src={post?.user?.profilePhoto?.url}
                       alt="post"
                       className="table-image"
                     />
-                    <span className="table-username">{post.user.username}</span>
+                    <span className="table-username">
+                      {post?.user?.username}
+                    </span>
                   </div>
                 </td>
-                <td className="table-username">{post.titel}</td>
+                <td className="table-username">{post?.titel}</td>
                 <td>
                   <div className="table-button-group">
                     <button className="view">
-                      <Link to={`/posts/details/${post._id}`}>View Post</Link>
+                      <Link to={`/posts/details/${post?._id}`}>View Post</Link>
                     </button>
                     <button
-                      onClick={() => deletepostHandler(post._id)}
+                      onClick={() => deletepostHandler(post?._id)}
                       className="delete"
                     >
                       Delete Post

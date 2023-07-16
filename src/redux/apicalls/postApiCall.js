@@ -9,7 +9,7 @@ export function getAllPosts() {
       const { data } = await request.get(`/api/posts`);
       disPatch(postAction.setpost(data));
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(error?.response?.data?.message);
     }
   };
 }
@@ -21,7 +21,7 @@ export function fatechPosts(pageNumber) {
 
       disPatch(postAction.setpost(data));
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(error?.response?.data?.message);
     }
   };
 }
@@ -34,7 +34,7 @@ export function fatechPostsCount() {
 
       disPatch(postAction.setpostCount(data));
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(error?.response?.data?.message);
     }
   };
 }
@@ -46,7 +46,7 @@ export function fatechPostscategory(category) {
       const { data } = await request.get(`/api/posts?category=${category}`);
       disPatch(postAction.setpostCate(data));
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(error?.response?.data?.message);
     }
   };
 }
@@ -66,7 +66,7 @@ export function creatPost(newpost) {
       setTimeout(() => disPatch(postAction.clearisPostCreated()), 3000);
     } catch (error) {
       disPatch(postAction.clearLodding());
-      toast.error(error.response.data.message);
+      toast.error(error?.response?.data?.message);
     }
   };
 }
@@ -78,7 +78,7 @@ export function fatechSinglePost(postid) {
       const { data } = await request.get(`/api/posts/${postid}`);
       disPatch(postAction.setOnePost(data));
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(error?.response?.data?.message);
     }
   };
 }
